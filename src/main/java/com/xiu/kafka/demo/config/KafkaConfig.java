@@ -64,7 +64,6 @@ public class KafkaConfig {
         props.put(ProducerConfig.TRANSACTION_TIMEOUT_CONFIG,20000);
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG,20000);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,false);
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,false);
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,15000);
         props.put(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG,10000);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
