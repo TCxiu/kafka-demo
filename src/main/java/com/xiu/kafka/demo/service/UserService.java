@@ -1,11 +1,10 @@
-package test.provider.Service;
+package com.xiu.kafka.demo.service;
 
+import com.xiu.kafka.demo.model.User;
+import com.xiu.kafka.demo.responsitory.UserRespository;
+import com.xiu.kafka.demo.utils.IdFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import test.provider.model.User;
-import test.provider.repository.UserRespository;
-import test.provider.utils.IdFactory;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,11 +29,11 @@ public class UserService {
     }
 
     public void delUser(Long id){
-        userRespository.delete(id);
+        userRespository.deleteById(id);
     }
 
     public boolean updateUser(Long id,User record){
-        User find = userRespository.findOne(id);
+        User find = userRespository.findById(id).get();
         record.setId(id);
         record.setCreateTime(find.getCreateTime());
         record.setUpdateTime(new Date());
@@ -42,7 +41,7 @@ public class UserService {
         return save == null ? false : true;
     }
     public User finduserById(Long id){
-        return userRespository.findOne(id);
+        return userRespository.findById(id).get();
     }
     public List<User> listUser(){
 

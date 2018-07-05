@@ -1,9 +1,9 @@
 package com.xiu.kafka.demo.controller;
 
+import com.xiu.kafka.demo.model.User;
+import com.xiu.kafka.demo.service.SendMsgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import test.provider.Service.SendMsgService;
-import test.provider.model.User;
 
 /**
  * @Auther 创建者: Tc李

@@ -1,16 +1,12 @@
-package test.provider.Service;
+package com.xiu.kafka.demo.service;
 
 import com.alibaba.fastjson.JSON;
+import com.xiu.kafka.demo.model.Message;
+import com.xiu.kafka.demo.model.User;
+import com.xiu.kafka.demo.responsitory.MessageResponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.GenericMessage;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import test.provider.model.Message;
-import test.provider.model.User;
-import test.provider.mq.TestInPut;
-import test.provider.repository.MessageResponsitory;
 
 /**
  * @Auther 创建者: Tc李
@@ -24,13 +20,8 @@ public class SendMsgService {
     @Autowired
     MessageResponsitory messageResponsitory;
 
-    private MessageChannel messageChannel;
-
     @Autowired
-    public SendMsgService(@Qualifier(TestInPut.INPUT) MessageChannel output) {
-        this.messageChannel =  output;
-    }
-
+    KafkaTemplate kafkaTemplate;
 
 
     public boolean sendMsg(Long id,User user){
@@ -40,9 +31,7 @@ public class SendMsgService {
         message.setMessage(JSON.toJSONString(user));
         messageResponsitory.save(message);
 
-        GenericMessage msg = new GenericMessage(message);
-
-        boolean send = messageChannel.send(MessageBuilder.withPayload(message).build());
-        return send;
+        kafkaTemplate.send("test","a",message);
+        return true;
     }
 }
