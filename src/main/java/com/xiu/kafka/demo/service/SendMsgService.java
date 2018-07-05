@@ -26,12 +26,12 @@ public class SendMsgService {
 
     public boolean sendMsg(Long id,User user){
         user.setId(id);
-        Message message = new Message();
-        message.setStatus("预发送");
-        message.setMessage(JSON.toJSONString(user));
-        messageResponsitory.save(message);
 
-        kafkaTemplate.send("test","a",message);
+        Message message = new Message();
+        message.setMessage(JSON.toJSONString(user));
+        message.setStatus("已发送");
+        messageResponsitory.save(message);
+        kafkaTemplate.send("user","100",message);
         return true;
     }
 }
